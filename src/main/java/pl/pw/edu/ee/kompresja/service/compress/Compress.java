@@ -1,4 +1,4 @@
-package pl.pw.edu.ee.kompresja.compress;
+package pl.pw.edu.ee.kompresja.service.compress;
 
 /**
  * @author Marcin Jasion <marcin.jasion@gmail.com>
