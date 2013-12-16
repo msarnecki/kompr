@@ -22,6 +22,8 @@ public class LZWServiceImpl implements LZWService {
 
     @Override
     public List<Integer> compress(String uncompressedText) {
+        if (uncompressedText == null || StringUtils.isEmpty(uncompressedText))
+            throw new IllegalArgumentException();
 
         Map<String, Integer> dictionary = Maps.newTreeMap();
 
@@ -35,39 +37,11 @@ public class LZWServiceImpl implements LZWService {
 
             String wc = w + c;
 
-            if(dictionary.containsKey(wc))
+            if (dictionary.containsKey(wc))
                 w = wc;
 
             else {
                 int newDictionaryKey = dictionary.keySet().size();
-                dictionary.put(wc, newDictionaryKey);
-                compressResult.add(dictionary.get(w));
-                w = Character.toString(c);
-            }
-        }
-
-        if (StringUtils.isNotEmpty(w))
-            compressResult.add(dictionary.get(w));
-
-        return compressResult;
-    }
-
-    private List<Integer> compress(String uncompressedText, Map<String, Integer> dictionary) {
-        for (int i = 0; i < START_DICT_SIZE; i++)
-            dictionary.put(Character.toString((char) i), i);
-
-        String w = "";
-        List<Integer> compressResult = Lists.newLinkedList();
-
-        for (char c : uncompressedText.toCharArray()) {
-
-            String wc = w + c;
-
-            if(dictionary.containsKey(wc))
-                w = wc;
-
-            else {
-                int newDictionaryKey = dictionary.keySet().size()+1;
                 dictionary.put(wc, newDictionaryKey);
                 compressResult.add(dictionary.get(w));
                 w = Character.toString(c);
