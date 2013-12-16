@@ -35,6 +35,16 @@ public class LZWServiceImplTests extends AbstractTestNGSpringContextTests {
     }
 
 
+    @DataProvider(name = "null-empty-texts")
+    public Object[][] nullAndEmptyTextx() {
+        return new Object[][] { { null }, { "" } };
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class, dataProvider = "null-empty-texts")
+    public void shouldGetIllegalArgumentException(String text) {
+        List<Integer> compressResult = lzwService.compress(text);
+    }
+
     public void shouldCompressToBeText() throws Exception {
         List<Integer> compressResult = lzwService.compress(TO_BE_TEXT);
 
