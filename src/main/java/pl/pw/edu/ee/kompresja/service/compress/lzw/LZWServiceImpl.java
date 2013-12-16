@@ -22,7 +22,8 @@ public class LZWServiceImpl implements LZWService {
 
     @Override
     public List<Integer> compress(String uncompressedText) {
-
+        if (uncompressedText == null || StringUtils.isEmpty(uncompressedText))
+            throw new IllegalArgumentException();
 
         Map<String, Integer> dictionary = Maps.newTreeMap();
 
@@ -52,5 +53,4 @@ public class LZWServiceImpl implements LZWService {
 
         return compressResult;
     }
-
 }
