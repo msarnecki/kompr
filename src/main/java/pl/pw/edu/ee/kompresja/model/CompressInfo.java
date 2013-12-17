@@ -1,5 +1,10 @@
 package pl.pw.edu.ee.kompresja.model;
 
+/**
+ * @author @author msarneck@gmail.com
+ *
+ */
+
 public class CompressInfo {
 
 

@@ -4,6 +4,7 @@ import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 /**
  * @author Marcin Jasion <marcin.jasion@gmail.com>
+ * @author msarneck@gmail.com
  */
 public interface CompressorService {
 
