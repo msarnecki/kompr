@@ -28,7 +28,7 @@ div {
     margin: 0 auto;
     min-height: 300px;
     width: 400px;
-    background-color: blueviolet;
+    padding-left: 100px;
 }
 
 .kompr {
@@ -98,7 +98,6 @@ div {
 
 .compressors{
     margin: 50px auto;
-    padding-left: 20px;
 }
 
 
