@@ -10,20 +10,24 @@
 
     <div class="title">
         <h2 class="kompr">Kompr.</h2>
-        <p class="title-info" >project for data compression course</p>
-        <p class="title-info" >teacher: dr inż. Sławomir Skoneczny</p>
-        <p class="title-info" >authors: Marcin Jasion, Marek Sarnecki</p>
+
+        <p class="title-info">project for data compression course</p>
+
+        <p class="title-info">teacher: dr inż. Sławomir Skoneczny</p>
+
+        <p class="title-info">authors: Marcin Jasion, Marek Sarnecki</p>
     </div>
     <div class="form">
-        <form>
+        <form method="post" enctype="multipart/form-data">
 
             <div class="file-input">
-                <input type="file" class="input" />
+                <input type="file" class="input" name="file"/>
             </div>
 
             <div class="compressors">
-                <a href="#" class="button">LZW</a>
-                <a href="#" class="button">LZMA</a>
+                <!--<a href="#" class="button">LZW</a>-->
+                <!--<a href="#" class="button">LZMA</a>-->
+                <input type="submit" class="button" value="Compare" style="width: 117px;height: 42px; "/>
             </div>
         </form>
     </div>
