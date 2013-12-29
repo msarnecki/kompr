@@ -21,20 +21,18 @@ import static org.testng.Assert.assertNotSame;
 
 @Test
 @ContextConfiguration(classes = KomprApplication.class)
-public class LZWServiceImplTests extends AbstractTestNGSpringContextTests {
+public class LZWServiceStringTests extends AbstractTestNGSpringContextTests {
     @Autowired
     LZWService lzwService;
 
+
     @DataProvider(name = "text-provider")
     public Object[][] getSampleTexts() {
-        return new Object[][] { { "TOBEORNOTTOBEORTOBEORNOT", Lists.newArrayList(84, 79, 66, 69, 79, 82, 78, 79, 84, 256, 258, 260, 265, 259, 261, 263) },
+        return new Object[][] { { "TOBEORNOTTOBEORTOBEORNOT",
+                                  Lists.newArrayList(84, 79, 66, 69, 79, 82, 78, 79, 84, 256, 258, 260, 265, 259, 261, 263) },
                                 { "ABRACADABRA!", Lists.newArrayList(65, 66, 82, 65, 67, 65, 68, 256, 258, 33) },
-                                { "Kompresja jest Spoko", Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 261, 116, 32, 83, 112, 111, 107, 111) } };
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void shouldGetIllegalArgumentExceptionOnNullText() {
-        List<Integer> compressResult = lzwService.compress(null);
+                                { "Kompresja jest Spoko",
+                                  Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 261, 116, 32, 83, 112, 111, 107, 111) } };
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -59,5 +57,4 @@ public class LZWServiceImplTests extends AbstractTestNGSpringContextTests {
         assertNotNull(compressResult);
         assertEquals(compressResult, expectedResultList);
     }
-
 }
