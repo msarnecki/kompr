@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -86,9 +87,10 @@ public class LZWServiceImpl implements LZWService {
         if (StringUtils.isNotEmpty(w))
             compressResult.add(dictionary.get(w));
 
+        removeNullObjects(compressResult);
+
         return compressResult;
     }
-
 
     private FileChannel getFileChannel(File fileToCompress) throws FileNotFoundException {
         RandomAccessFile rac = new RandomAccessFile(fileToCompress, "r");
@@ -117,5 +119,7 @@ public class LZWServiceImpl implements LZWService {
         return result;
     }
 
-
+    private void removeNullObjects(List<Integer> compressResult) {
+        compressResult.removeAll(Collections.singleton(null));
+    }
 }

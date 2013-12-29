@@ -80,6 +80,6 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         List<Integer> compressResult = lzwService.compress(pantadeuszFile);
         // then
         assertNotNull(compressResult);
-        assertEquals(compressResult.size(), 109185);
+        assertEquals(compressResult.size(), 108960);
     }
 }
