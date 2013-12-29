@@ -1,4 +1,5 @@
 target/
+uploaded/
 *.class
 .idea/
 *.iml
