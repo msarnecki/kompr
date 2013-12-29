@@ -1,5 +1,7 @@
 package pl.pw.edu.ee.kompresja.service.compress;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -8,5 +10,7 @@ import java.util.List;
 public interface Compress {
 
     List<Integer> compress(String uncompressedText);
+
+    List<Integer> compress(File fileToCompress) throws IOException;
 
 }
