@@ -11,6 +11,8 @@ import org.testng.annotations.Test;
 import pl.pw.edu.ee.kompresja.KomprApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +29,36 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
     @Value("classpath:test_lzw.txt")
     Resource testLzw;
 
+    @Value("classpath:empty.txt")
+    Resource empty;
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void shouldGetIllegalArgumentExceptionOnEmptyText() {
+    @Test(expectedExceptions = FileNotFoundException.class)
+    public void shouldGetFileNotFoundExceptionOnEmptyText() throws IOException {
         List<Integer> compressResult = lzwService.compress(new File("im_not_exists.txt"));
     }
 
     @Test
-    public void shouldCompresTestLZWFile() throws Exception {
+    public void shouldCompresTestLZWFile() throws IOException {
         // given
         File testFile = testLzw.getFile();
         ArrayList<Integer> expected = Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 261, 116, 32, 83, 112, 111, 107, 111);
 
         // when
         List<Integer> compressResult = lzwService.compress(testFile);
+
+        // then
+        Assert.assertNotNull(compressResult);
+        Assert.assertEquals(compressResult, expected);
+    }
+
+    @Test
+    public void shouldCompresTestEmptyFile() throws IOException {
+        // given
+        File emptyFile = empty.getFile();
+        ArrayList<Integer> expected = Lists.newArrayList();
+
+        // when
+        List<Integer> compressResult = lzwService.compress(emptyFile);
 
         // then
         Assert.assertNotNull(compressResult);
