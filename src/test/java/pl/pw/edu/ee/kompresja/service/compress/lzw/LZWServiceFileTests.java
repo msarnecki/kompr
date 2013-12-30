@@ -46,13 +46,16 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
     public void shouldCompresTestLZWFile() throws IOException {
         // given
         File testFile = testLzw.getFile();
-        ArrayList<Integer> expected = Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 261, 116, 32, 83, 112, 111, 107, 111);
+        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 1028, 97);
 
         // when
         List<Integer> compressResult = lzwService.compress(testFile);
 
         // then
         assertNotNull(compressResult);
+        for (Integer compressed : compressResult) {
+            assertNotNull(compressed);
+        }
         assertEquals(compressResult, expected);
     }
 
@@ -74,12 +77,14 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
     public void shouldCompresPanTadeusz() throws IOException {
         // given
         File pantadeuszFile = pantadeusz.getFile();
-        ArrayList<Integer> expected = Lists.newArrayList();
 
         // when
         List<Integer> compressResult = lzwService.compress(pantadeuszFile);
         // then
         assertNotNull(compressResult);
-        assertEquals(compressResult.size(), 108960);
+        for (Integer compressed : compressResult) {
+            assertNotNull(compressed, compressResult.toString());
+        }
+        assertEquals(compressResult.size(), 109185);
     }
 }
