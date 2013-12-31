@@ -59,7 +59,6 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         for (Integer compressed : compressResult) {
             assertNotNull(compressed);
         }
-        System.out.println("compressResult = " + compressResult);
         assertEquals(compressResult, expected);
     }
 
