@@ -37,16 +37,19 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
     @Value("classpath:pan-tadeusz-czyli-ostatni-zajazd-na-litwie.txt")
     Resource pantadeusz;
 
+    @Value("classpath:progit.en.pdf")
+    Resource gitPdf;
+
     @Test(expectedExceptions = FileNotFoundException.class)
     public void shouldGetFileNotFoundExceptionOnEmptyText() throws IOException {
         List<Integer> compressResult = lzwService.compress(new File("im_not_exists.txt"));
     }
 
     @Test
-    public void shouldCompresTestLZWFile() throws IOException {
+    public void shouldCompressTestLZWFile() throws IOException {
         // given
         File testFile = testLzw.getFile();
-        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 1028, 97);
+        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 65540, 97);
 
         // when
         List<Integer> compressResult = lzwService.compress(testFile);
@@ -56,11 +59,12 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         for (Integer compressed : compressResult) {
             assertNotNull(compressed);
         }
+        System.out.println("compressResult = " + compressResult);
         assertEquals(compressResult, expected);
     }
 
     @Test
-    public void shouldCompresTestEmptyFile() throws IOException {
+    public void shouldCompressTestEmptyFile() throws IOException {
         // given
         File emptyFile = empty.getFile();
         ArrayList<Integer> expected = Lists.newArrayList();
@@ -73,18 +77,33 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         assertEquals(compressResult, expected);
     }
 
-    @Test
-    public void shouldCompresPanTadeusz() throws IOException {
+    @Test(timeOut = 30000)
+    public void shouldCompressPanTadeuszTxt() throws IOException {
         // given
         File pantadeuszFile = pantadeusz.getFile();
 
         // when
         List<Integer> compressResult = lzwService.compress(pantadeuszFile);
+
         // then
         assertNotNull(compressResult);
         for (Integer compressed : compressResult) {
-            assertNotNull(compressed, compressResult.toString());
+            assertNotNull(compressed);
         }
-        assertEquals(compressResult.size(), 109185);
+    }
+
+    @Test(timeOut = 60000)
+    public void shouldCompressGitPdf() throws Exception {
+        // given
+        File gitPdfFole = gitPdf.getFile();
+
+        // when
+        List<Integer> compressResult = lzwService.compress(gitPdfFole);
+
+        // then
+        assertNotNull(compressResult);
+        for (Integer compressed : compressResult) {
+            assertNotNull(compressed);
+        }
     }
 }
