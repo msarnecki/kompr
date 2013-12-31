@@ -29,10 +29,10 @@ public class LZWServiceStringTests extends AbstractTestNGSpringContextTests {
     @DataProvider(name = "text-provider")
     public Object[][] getSampleTexts() {
         return new Object[][] { { "TOBEORNOTTOBEORTOBEORNOT",
-                                  Lists.newArrayList(84, 79, 66, 69, 79, 82, 78, 79, 84, 1024, 1026, 1028, 1033, 1027, 1029, 1031) },
-                                { "ABRACADABRA!", Lists.newArrayList(65, 66, 82, 65, 67, 65, 68, 1024, 1026, 33) },
+                                  Lists.newArrayList(84, 79, 66, 69, 79, 82, 78, 79, 84, 65536, 65538, 65540, 65545, 65539, 65541, 65543) },
+                                { "ABRACADABRA!", Lists.newArrayList(65, 66, 82, 65, 67, 65, 68, 65536, 65538, 33) },
                                 { "Kompresja jest Spoko",
-                                  Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 1029, 116, 32, 83, 112, 111, 107, 111) } };
+                                  Lists.newArrayList(75, 111, 109, 112, 114, 101, 115, 106, 97, 32, 106, 65541, 116, 32, 83, 112, 111, 107, 111) } };
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -42,8 +42,10 @@ public class LZWServiceStringTests extends AbstractTestNGSpringContextTests {
 
     @Test(dataProvider = "text-provider")
     public void shouldFailCompress(String text, List<Integer> expectedResultList) throws Exception {
+        // when
         List<Integer> compressResult = lzwService.compress(text + "#");
 
+        // then
         assertNotNull(compressResult);
         assertNotEquals(compressResult, expectedResultList);
         assertNotSame(compressResult, expectedResultList);
@@ -51,10 +53,10 @@ public class LZWServiceStringTests extends AbstractTestNGSpringContextTests {
 
     @Test(dataProvider = "text-provider")
     public void shouldCompressTextsFromDataProvider(String text, List<Integer> expectedResultList) {
+        // when
         List<Integer> compressResult = lzwService.compress(text);
 
-        System.out.println("compressResult = " + compressResult);
-
+        // then
         assertNotNull(compressResult);
         assertEquals(compressResult, expectedResultList);
     }
@@ -62,7 +64,7 @@ public class LZWServiceStringTests extends AbstractTestNGSpringContextTests {
     public void shouldCompressTextWithPolishChars() {
         // given
         String uncompressedText = "Myślałem, że działa";
-        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 1028, 97);
+        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 65540, 97);
 
         // when
         List<Integer> compressResult = lzwService.compress(uncompressedText);
