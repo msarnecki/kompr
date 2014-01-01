@@ -30,10 +30,9 @@ public class LZWServiceImpl implements LZWService {
 
     private Map<String, Integer> dictionary = Maps.newTreeMap();
 
-
     @Override
     public List<Integer> compress(File fileToCompress) throws IOException {
-        List<Integer> compressResult = Lists.newLinkedList();
+        List<Integer> compressResult = Lists.newArrayList();
         createDictionary();
 
         try (FileChannel fileChannel = getFileChannel(fileToCompress)) {
@@ -64,7 +63,7 @@ public class LZWServiceImpl implements LZWService {
 
         int dictSize = dictionary.keySet().size();
         String w = "";
-        List<Integer> compressResult = Lists.newLinkedList();
+        List<Integer> compressResult = Lists.newArrayList();
 
         for (char c : uncompressed) {
 
