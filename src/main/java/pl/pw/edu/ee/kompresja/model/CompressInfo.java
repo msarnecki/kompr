@@ -1,39 +1,38 @@
 package pl.pw.edu.ee.kompresja.model;
 
+import java.io.File;
+
 /**
  * @author @author msarneck@gmail.com
- *
  */
 
 public class CompressInfo {
 
+    private long duration;         // in ms
+    private long sizeBefore;
+    private long sizeAfter;
 
-    private int duration;
-    private int sizeBefore;
-    private int sizeAfter;
-
-
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
-    public int getSizeBefore() {
+    public long getSizeBefore() {
         return sizeBefore;
     }
 
-    public void setSizeBefore(int sizeBefore) {
+    public void setSizeBefore(long sizeBefore) {
         this.sizeBefore = sizeBefore;
     }
 
-    public int getSizeAfter() {
+    public long getSizeAfter() {
         return sizeAfter;
     }
 
-    public void setSizeAfter(int sizeAfter) {
+    public void setSizeAfter(long sizeAfter) {
         this.sizeAfter = sizeAfter;
     }
 }

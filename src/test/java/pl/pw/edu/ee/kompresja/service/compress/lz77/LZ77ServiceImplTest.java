@@ -2,19 +2,19 @@ package pl.pw.edu.ee.kompresja.service.compress.lz77;
 
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 import pl.pw.edu.ee.kompresja.KomprApplication;
+import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 import java.io.*;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -24,6 +24,10 @@ import static org.junit.Assert.assertThat;
 @Test
 @ContextConfiguration(classes = KomprApplication.class)
 public class LZ77ServiceImplTest extends AbstractTestNGSpringContextTests {
+
+
+    @Autowired
+    private LZ77Service lz77Service;
 
     @Value("classpath:simple")
     Resource simpleFile;
@@ -44,12 +48,11 @@ public class LZ77ServiceImplTest extends AbstractTestNGSpringContextTests {
         //given
         File file = simpleFile.getFile();
         String expected = getFileContentAsString(file);
-        LZ77T lz77T = new LZ77T();
 
         //when
-        File compressedFile = lz77T.compress(file);
-        File decompressedFile = lz77T.decompress(compressedFile);
-        String result = getFileContentAsString(decompressedFile);
+        CompressInfoFile compressed = lz77Service.compressFile(file);
+        CompressInfoFile decompressed = lz77Service.decompressFile(compressed.getCompressedFile());
+        String result = getFileContentAsString(decompressed.getCompressedFile());
 
         //then
         assertThat(expected, is(result));
@@ -60,12 +63,11 @@ public class LZ77ServiceImplTest extends AbstractTestNGSpringContextTests {
         //given
         File file = fileWithPolishChars.getFile();
         String expected = getFileContentAsString(file);
-        LZ77T lz77T = new LZ77T();
 
         //when
-        File compressedFile = lz77T.compress(file);
-        File decompressedFile = lz77T.decompress(compressedFile);
-        String result = getFileContentAsString(decompressedFile);
+        CompressInfoFile compressed = lz77Service.compressFile(file);
+        CompressInfoFile decompressed = lz77Service.decompressFile(compressed.getCompressedFile());
+        String result = getFileContentAsString(decompressed.getCompressedFile());
 
         //then
         assertThat(expected, is(result));
@@ -76,12 +78,11 @@ public class LZ77ServiceImplTest extends AbstractTestNGSpringContextTests {
         //given
         File file = emptyFile.getFile();
         String expected = getFileContentAsString(file);
-        LZ77T lz77T = new LZ77T();
 
         //when
-        File compressedFile = lz77T.compress(file);
-        File decompressedFile = lz77T.decompress(compressedFile);
-        String result = getFileContentAsString(decompressedFile);
+        CompressInfoFile compressed = lz77Service.compressFile(file);
+        CompressInfoFile decompressed = lz77Service.decompressFile(compressed.getCompressedFile());
+        String result = getFileContentAsString(decompressed.getCompressedFile());
 
         //then
         assertThat(expected, is(result));
@@ -91,10 +92,9 @@ public class LZ77ServiceImplTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = FileNotFoundException.class)
     public void shouldThrowFileNotFoundException() throws IOException {
         //given
-        LZ77T lz77T = new LZ77T();
 
         //when
-        File resultCompressFile = lz77T.compress(new File("notExistingFile"));
+        CompressInfoFile result = lz77Service.compressFile(new File("notExistingFile"));
 
         //then
     }
