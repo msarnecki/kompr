@@ -1,4 +1,4 @@
-package pl.pw.edu.ee.kompresja.service.compress.lzma;
+package pl.pw.edu.ee.kompresja.service.compress.lz77;
 
 import pl.pw.edu.ee.kompresja.service.compress.Compress;
 
@@ -7,5 +7,5 @@ import pl.pw.edu.ee.kompresja.service.compress.Compress;
  *
  */
 
- public interface LZMAService extends Compress {
+ public interface LZ77Service extends Compress {
 }

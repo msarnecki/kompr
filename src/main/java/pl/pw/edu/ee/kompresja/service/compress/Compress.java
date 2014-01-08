@@ -13,4 +13,7 @@ public interface Compress {
 
     List<Integer> compress(File fileToCompress) throws IOException;
 
+
+
+
 }
