@@ -9,3 +9,8 @@ uploaded/
 *.jar
 *.war
 *.ear
+
+# Compress files
+
+*.77
+*.77u
