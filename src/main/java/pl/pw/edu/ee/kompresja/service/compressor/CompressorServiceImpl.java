@@ -13,15 +13,24 @@ import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 public class CompressorServiceImpl implements CompressorService {
     private Logger log = LoggerFactory.getLogger(CompressorServiceImpl.class);
 
+
     @Override
-    public CompressInfoFile compressWithLZMA() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public CompressInfoFile compressWithLZ77() {
+        return null;
+    }
+
+    @Override
+    public CompressInfoFile decompressWithLZ7() {
         return null;
     }
 
     @Override
     public CompressInfoFile compressWithLZW() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        return null;
+    }
+
+    @Override
+    public CompressInfoFile decompressWithLZW() {
         return null;
     }
 }

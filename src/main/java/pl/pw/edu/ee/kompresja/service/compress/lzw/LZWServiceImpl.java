@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,6 +84,16 @@ public class LZWServiceImpl implements LZWService {
             compressResult.add(dictionary.get(w));
 
         return compressResult;
+    }
+
+    @Override
+    public CompressInfoFile compressFile(final File fileToCompress) throws IOException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public CompressInfoFile decompressFile(final File fileToDecompress) throws IOException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private void createDictionary() {

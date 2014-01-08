@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.XZOutputStream;
+import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +28,17 @@ public class LZ77ServiceImpl implements LZ77Service {
 
     @Override
     public List<Integer> compress(File fileToCompress) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
+    }
+
+    @Override
+    public CompressInfoFile compressFile(final File fileToCompress) throws IOException {
+        return null;
+    }
+
+    @Override
+    public CompressInfoFile decompressFile(final File fileToDecompress) throws IOException {
+        return null;
     }
 
 
