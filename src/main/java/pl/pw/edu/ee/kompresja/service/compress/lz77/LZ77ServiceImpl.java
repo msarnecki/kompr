@@ -7,8 +7,15 @@ import pl.pw.edu.ee.kompresja.model.CompressInfo;
 import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 import pl.pw.edu.ee.kompresja.model.DictionaryBuffer;
 
-import java.io.*;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StreamTokenizer;
 
 /**
  * @author msarnecki@gmail.com
@@ -134,16 +141,6 @@ public class LZ77ServiceImpl implements LZ77Service {
         compressInfo.setSizeBefore(fileToDecompress.getTotalSpace());
         compressInfo.setSizeAfter(fileResult.getTotalSpace());
         return new CompressInfoFile(compressInfo, fileResult);
-    }
-
-    @Override
-    public List<Integer> compress(String uncompressedText) {
-        return null;
-    }
-
-    @Override
-    public List<Integer> compress(File fileToCompress) {
-        return null;
     }
 
     private StreamTokenizer getStreamTokenizer(Reader inputFile) {

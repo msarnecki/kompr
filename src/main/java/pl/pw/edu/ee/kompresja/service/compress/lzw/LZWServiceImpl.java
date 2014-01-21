@@ -7,11 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import pl.pw.edu.ee.kompresja.model.CompressInfo;
 import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -27,68 +31,54 @@ import java.util.Map;
 public class LZWServiceImpl implements LZWService {
     private Logger log = LoggerFactory.getLogger(LZWServiceImpl.class);
     public static final int START_DICT_SIZE = 65536;
-    private static final int BUFFER_SIZE = 4096;
 
     private Map<String, Integer> dictionary = Maps.newTreeMap();
 
     @Override
+    public CompressInfoFile compressFile(File fileToCompress) throws IOException {
+        List<Integer> compressResult = compress(fileToCompress);
+        CompressInfo compressInfo = new CompressInfo();
+
+        compressInfo.setSizeAfter(compressResult.size());
+        compressInfo.setSizeBefore(fileToCompress.getTotalSpace());
+
+
+        CompressInfoFile compressInfoFile = new CompressInfoFile(compressInfo, null);
+        compressInfoFile.setCompressInfo(compressInfo);
+        compressInfoFile.setCompressedResult(compressResult);
+
+        return compressInfoFile;
+    }
+
     public List<Integer> compress(File fileToCompress) throws IOException {
         List<Integer> compressResult = Lists.newArrayList();
         createDictionary();
 
-        try (FileChannel fileChannel = getFileChannel(fileToCompress)) {
-            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        try (Reader inputFile = new BufferedReader(new FileReader(fileToCompress));) {
+            int nextChar;
 
-            while (fileChannel.read(buffer) != -1) {
-                char[] uncompressed = getBufferedText(buffer);
-                List<Integer> compressedText = compress(uncompressed);
-                compressResult.addAll(compressedText);
+            while (( nextChar = inputFile.read() ) != -1) {
+                char c = (char) nextChar;
+                int dictSize = dictionary.keySet().size();
+                String w = "";
 
+                String wc = w + c;
+                if (dictionary.containsKey(wc))
+                    w = wc;
+
+                else {
+                    Integer wCode = dictionary.get(w);
+                    compressResult.add(wCode);
+                    dictionary.put(wc, dictSize++);
+                    w = Character.toString(c);
+                }
+
+                if (StringUtils.isNotEmpty(w))
+                    compressResult.add(dictionary.get(w));
             }
         }
 
         return compressResult;
-    }
-
-    @Override
-    public List<Integer> compress(String uncompressedText) {
-        if (StringUtils.isEmpty(uncompressedText))
-            throw new IllegalArgumentException();
-
-        createDictionary();
-
-        return compress(uncompressedText.toCharArray());
-    }
-
-    private List<Integer> compress(char[] uncompressed) {
-
-        int dictSize = dictionary.keySet().size();
-        String w = "";
-        List<Integer> compressResult = Lists.newArrayList();
-
-        for (char c : uncompressed) {
-
-            String wc = w + c;
-            if (dictionary.containsKey(wc))
-                w = wc;
-
-            else {
-                Integer wCode = dictionary.get(w);
-                compressResult.add(wCode);
-                dictionary.put(wc, dictSize++);
-                w = Character.toString(c);
-            }
-        }
-
-        if (StringUtils.isNotEmpty(w))
-            compressResult.add(dictionary.get(w));
-
-        return compressResult;
-    }
-
-    @Override
-    public CompressInfoFile compressFile(final File fileToCompress) throws IOException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

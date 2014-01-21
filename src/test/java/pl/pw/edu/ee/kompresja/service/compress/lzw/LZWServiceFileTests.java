@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 import pl.pw.edu.ee.kompresja.KomprApplication;
+import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,24 +43,25 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = FileNotFoundException.class)
     public void shouldGetFileNotFoundExceptionOnEmptyText() throws IOException {
-        List<Integer> compressResult = lzwService.compress(new File("im_not_exists.txt"));
+        CompressInfoFile compressInfoFile = lzwService.compressFile(new File("im_not_exists.txt"));
     }
 
     @Test
     public void shouldCompressTestLZWFile() throws IOException {
         // given
         File testFile = testLzw.getFile();
-        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 65540, 97);
+        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 97,322, 97);
 
         // when
-        List<Integer> compressResult = lzwService.compress(testFile);
+        CompressInfoFile compressInfoFile = lzwService.compressFile(testFile);
 
         // then
-        assertNotNull(compressResult);
-        for (Integer compressed : compressResult) {
+        assertNotNull(compressInfoFile);
+        assertNotNull(compressInfoFile.getCompressedResult());
+        for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
-        assertEquals(compressResult, expected);
+        assertEquals(compressInfoFile.getCompressedResult(), expected);
     }
 
     @Test
@@ -69,11 +71,12 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         ArrayList<Integer> expected = Lists.newArrayList();
 
         // when
-        List<Integer> compressResult = lzwService.compress(emptyFile);
+        CompressInfoFile compressInfoFile = lzwService.compressFile(emptyFile);
 
         // then
-        assertNotNull(compressResult);
-        assertEquals(compressResult, expected);
+        assertNotNull(compressInfoFile);
+        assertNotNull(compressInfoFile.getCompressedResult());
+        assertEquals(compressInfoFile.getCompressedResult(), expected);
     }
 
     @Test(timeOut = 30000)
@@ -82,11 +85,12 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         File pantadeuszFile = pantadeusz.getFile();
 
         // when
-        List<Integer> compressResult = lzwService.compress(pantadeuszFile);
+        CompressInfoFile compressInfoFile = lzwService.compressFile(pantadeuszFile);
 
         // then
-        assertNotNull(compressResult);
-        for (Integer compressed : compressResult) {
+        assertNotNull(compressInfoFile);
+        assertNotNull(compressInfoFile.getCompressedResult());
+        for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
     }
@@ -97,11 +101,12 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         File gitPdfFole = gitPdf.getFile();
 
         // when
-        List<Integer> compressResult = lzwService.compress(gitPdfFole);
+        CompressInfoFile compressInfoFile = lzwService.compressFile(gitPdfFole);
 
         // then
-        assertNotNull(compressResult);
-        for (Integer compressed : compressResult) {
+        assertNotNull(compressInfoFile);
+        assertNotNull(compressInfoFile.getCompressedResult());
+        for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
     }
