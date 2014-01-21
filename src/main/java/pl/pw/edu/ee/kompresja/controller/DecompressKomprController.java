@@ -12,15 +12,16 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
+@RequestMapping("/decompress")
 public class DecompressKomprController {
     private Logger log = LoggerFactory.getLogger(DecompressKomprController.class);
 
-    @RequestMapping("/")
+    @RequestMapping(method = RequestMethod.GET)
     String home() {
         return "decompress";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     String postFile(@RequestParam("file") MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
         File uploadedFile = new File(fileName);
