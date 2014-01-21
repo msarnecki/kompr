@@ -52,7 +52,7 @@ public class LZ77ServiceImpl implements LZ77Service {
         String repeatMatch = "";
 
 
-        while ((nextChar = inputFile.read()) != -1) {
+        while (( nextChar = inputFile.read() ) != -1) {
 
             tempIndex = dictionary.indexOf(repeatMatch + (char) nextChar);
             if (tempIndex != -1) {
@@ -99,9 +99,13 @@ public class LZ77ServiceImpl implements LZ77Service {
 
         BigDecimal sizeBefore = new BigDecimal(compressInfo.getSizeBefore());
         BigDecimal sizeAfter = new BigDecimal(compressInfo.getSizeAfter() * 100);
-        BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
+        if (!sizeBefore.equals(BigDecimal.ZERO)) {
+            BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
 
-        compressInfo.setCompressRatio(ratio.toString());
+            compressInfo.setCompressRatio(ratio.toString());
+        } else {
+            compressInfo.setCompressRatio("0");
+        }
 
         return new CompressInfoFile(compressInfo, fileResult);
     }
@@ -134,7 +138,8 @@ public class LZ77ServiceImpl implements LZ77Service {
                 st.nextToken();
                 repeatedWordFromDictionaryLength = (int) st.nval;
 
-                String matchedStringFromDictionary = dictionary.substring(wordIndexInDictionary, wordIndexInDictionary + repeatedWordFromDictionaryLength);
+                String matchedStringFromDictionary = dictionary.substring(wordIndexInDictionary,
+                                                                          wordIndexInDictionary + repeatedWordFromDictionaryLength);
 
                 printWriter.print(matchedStringFromDictionary);
                 dictionary.append(matchedStringFromDictionary);
@@ -164,7 +169,6 @@ public class LZ77ServiceImpl implements LZ77Service {
 
         return result;
     }
-
 
 
 }

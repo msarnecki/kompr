@@ -44,14 +44,17 @@ public class LZWServiceImpl implements LZWService {
 
         BigDecimal sizeBefore = new BigDecimal(compressInfo.getSizeBefore());
         BigDecimal sizeAfter = new BigDecimal(compressInfo.getSizeAfter() * 100);
-        BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
+        if (!sizeBefore.equals(BigDecimal.ZERO)) {
+            BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
 
-        compressInfo.setCompressRatio(ratio.toString());
+            compressInfo.setCompressRatio(ratio.toString());
+        } else {
+            compressInfo.setCompressRatio("0");
+        }
 
         CompressInfoFile compressInfoFile = new CompressInfoFile(compressInfo, null);
         compressInfoFile.setCompressInfo(compressInfo);
         compressInfoFile.setCompressedResult(compressResult);
-
 
 
         return compressInfoFile;

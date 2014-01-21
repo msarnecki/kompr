@@ -78,7 +78,6 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         // then
         assertNotNull(compressInfoFile);
         assertNotNull(compressInfoFile.getCompressedResult());
-        assertNotEquals(compressInfoFile.getCompressInfo().getSizeBefore(), compressInfoFile.getCompressInfo().getSizeAfter());
         assertEquals(compressInfoFile.getCompressedResult(), expected);
     }
 
