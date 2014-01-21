@@ -2,21 +2,35 @@ package pl.pw.edu.ee.kompresja.service.compressor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
+import pl.pw.edu.ee.kompresja.service.compress.lz77.LZ77Service;
+import pl.pw.edu.ee.kompresja.service.compress.lzw.LZWService;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Marcin Jasion <marcin.jasion@gmail.com>
  * @author msarneck@gmail.com
  */
-@Component("compressor")
+@Service("compressor")
+@Scope("prototype")
 public class CompressorServiceImpl implements CompressorService {
     private Logger log = LoggerFactory.getLogger(CompressorServiceImpl.class);
 
+    @Autowired
+    private LZWService lzwService;
+
+    @Autowired
+    private LZ77Service lz77Service;
+
 
     @Override
-    public CompressInfoFile compressWithLZ77() {
-        return null;
+    public CompressInfoFile compressWithLZ77(File fileToCompress) throws IOException {
+        return lz77Service.compressFile(fileToCompress);
     }
 
     @Override
@@ -25,8 +39,8 @@ public class CompressorServiceImpl implements CompressorService {
     }
 
     @Override
-    public CompressInfoFile compressWithLZW() {
-        return null;
+    public CompressInfoFile compressWithLZW(File fileToCompress) throws IOException {
+        return lzwService.compressFile(fileToCompress);
     }
 
     @Override

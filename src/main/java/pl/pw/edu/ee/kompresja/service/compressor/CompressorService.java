@@ -3,6 +3,7 @@ package pl.pw.edu.ee.kompresja.service.compressor;
 import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Marcin Jasion <marcin.jasion@gmail.com>  ,
@@ -10,11 +11,11 @@ import java.io.File;
  */
 public interface CompressorService {
 
-    public CompressInfoFile compressWithLZ77();
+    public CompressInfoFile compressWithLZ77(File fileToCompress) throws IOException;
 
     public CompressInfoFile decompressWithLZ7();
 
-    public CompressInfoFile compressWithLZW();
+    public CompressInfoFile compressWithLZW(File fileToCompress) throws IOException;
 
     public CompressInfoFile decompressWithLZW();
 }

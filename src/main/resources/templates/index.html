@@ -31,6 +31,31 @@
             </div>
         </form>
     </div>
+    <div th:if="${compressed}">
+        <table>
+            <thead>
+                <tr style="font-size: large">
+                    <td>Algorytm</td>
+                    <td>Przed</td>
+                    <td>Po</td>
+                    <td>%</td>
+                </tr>
+            </thead>
+            <tbody>
+            <td>LZ77</td>
+                <td th:text="${lz77.compressInfo.sizeBefore}"></td>
+                <td th:text="${lz77.compressInfo.sizeAfter}"></td>
+                <td th:text="${lz77.compressInfo.compressRatio}"></td>
+                <td></td>
+            </tbody>
+            <tbody>
+                <td>LZW</td>
+                <td th:text="${lzw.compressInfo.sizeBefore}"></td>
+                <td th:text="${lzw.compressInfo.sizeAfter}"></td>
+                <td th:text="${lzw.compressInfo.compressRatio}"></td>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

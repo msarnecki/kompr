@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import pl.pw.edu.ee.kompresja.model.CompressInfo;
 import pl.pw.edu.ee.kompresja.model.CompressInfoFile;
@@ -16,6 +15,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Reader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -26,7 +27,6 @@ import java.util.Map;
  * @author Marcin Jasion <marcin.jasion@gmail.com>
  */
 
-@Scope("prototype")
 @Service("lzwService")
 public class LZWServiceImpl implements LZWService {
     private Logger log = LoggerFactory.getLogger(LZWServiceImpl.class);
@@ -40,12 +40,19 @@ public class LZWServiceImpl implements LZWService {
         CompressInfo compressInfo = new CompressInfo();
 
         compressInfo.setSizeAfter(compressResult.size());
-        compressInfo.setSizeBefore(fileToCompress.getTotalSpace());
+        compressInfo.setSizeBefore(fileToCompress.length());
 
+        BigDecimal sizeBefore = new BigDecimal(compressInfo.getSizeBefore());
+        BigDecimal sizeAfter = new BigDecimal(compressInfo.getSizeAfter() * 100);
+        BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
+
+        compressInfo.setCompressRatio(ratio.toString());
 
         CompressInfoFile compressInfoFile = new CompressInfoFile(compressInfo, null);
         compressInfoFile.setCompressInfo(compressInfo);
         compressInfoFile.setCompressedResult(compressResult);
+
+
 
         return compressInfoFile;
     }

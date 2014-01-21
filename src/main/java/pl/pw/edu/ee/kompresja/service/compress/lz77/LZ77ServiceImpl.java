@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StreamTokenizer;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @author msarnecki@gmail.com
@@ -92,8 +94,15 @@ public class LZ77ServiceImpl implements LZ77Service {
         output.flush();
         output.close();
 
-        compressInfo.setSizeBefore(fileToCompress.getTotalSpace());
-        compressInfo.setSizeAfter(fileResult.getTotalSpace());
+        compressInfo.setSizeBefore(fileToCompress.length());
+        compressInfo.setSizeAfter(fileResult.length());
+
+        BigDecimal sizeBefore = new BigDecimal(compressInfo.getSizeBefore());
+        BigDecimal sizeAfter = new BigDecimal(compressInfo.getSizeAfter() * 100);
+        BigDecimal ratio = sizeAfter.divide(sizeBefore, 2, RoundingMode.HALF_UP);
+
+        compressInfo.setCompressRatio(ratio.toString());
+
         return new CompressInfoFile(compressInfo, fileResult);
     }
 

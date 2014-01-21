@@ -1,7 +1,5 @@
 package pl.pw.edu.ee.kompresja.model;
 
-import java.io.File;
-
 /**
  * @author @author msarneck@gmail.com
  */
@@ -11,6 +9,7 @@ public class CompressInfo {
     private long duration;         // in ms
     private long sizeBefore;
     private long sizeAfter;
+    private String compressRatio;
 
     public long getDuration() {
         return duration;
@@ -34,5 +33,13 @@ public class CompressInfo {
 
     public void setSizeAfter(long sizeAfter) {
         this.sizeAfter = sizeAfter;
+    }
+
+    public String getCompressRatio() {
+        return compressRatio;
+    }
+
+    public void setCompressRatio(String compressRatio) {
+        this.compressRatio = compressRatio;
     }
 }
