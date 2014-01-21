@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 
 /**
@@ -58,6 +59,7 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         // then
         assertNotNull(compressInfoFile);
         assertNotNull(compressInfoFile.getCompressedResult());
+        assertNotEquals(compressInfoFile.getCompressInfo().getSizeBefore(), compressInfoFile.getCompressInfo().getSizeAfter());
         for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
@@ -76,6 +78,7 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         // then
         assertNotNull(compressInfoFile);
         assertNotNull(compressInfoFile.getCompressedResult());
+        assertNotEquals(compressInfoFile.getCompressInfo().getSizeBefore(), compressInfoFile.getCompressInfo().getSizeAfter());
         assertEquals(compressInfoFile.getCompressedResult(), expected);
     }
 
@@ -90,6 +93,7 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         // then
         assertNotNull(compressInfoFile);
         assertNotNull(compressInfoFile.getCompressedResult());
+        assertNotEquals(compressInfoFile.getCompressInfo().getSizeBefore(), compressInfoFile.getCompressInfo().getSizeAfter());
         for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
@@ -106,6 +110,7 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
         // then
         assertNotNull(compressInfoFile);
         assertNotNull(compressInfoFile.getCompressedResult());
+        assertNotEquals(compressInfoFile.getCompressInfo().getSizeBefore(), compressInfoFile.getCompressInfo().getSizeAfter());
         for (Integer compressed : compressInfoFile.getCompressedResult()) {
             assertNotNull(compressed);
         }
