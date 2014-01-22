@@ -27,6 +27,22 @@
 
         </form>
     </div>
+
+    <div th:if="${compressed}">
+        <table class="result-table">
+            <thead style="border-bottom: thin solid #B3B3B3;">
+            <tr style="font-size: large">
+                <td>Algorithm</td>
+                <td>File</td>
+            </tr>
+            </thead>
+            <tbody>
+                <td>LZ77</td>
+                <td th:text="${lz77.compressedFile}"></td>
+                <td></td>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

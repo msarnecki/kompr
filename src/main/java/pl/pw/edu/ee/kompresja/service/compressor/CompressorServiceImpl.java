@@ -34,9 +34,10 @@ public class CompressorServiceImpl implements CompressorService {
     }
 
     @Override
-    public CompressInfoFile decompressWithLZ7() {
-        return null;
+    public CompressInfoFile decompressWithLZ7(final File fileToDecompress) throws IOException {
+        return lz77Service.decompressFile(fileToDecompress);
     }
+
 
     @Override
     public CompressInfoFile compressWithLZW(File fileToCompress) throws IOException {
@@ -44,7 +45,8 @@ public class CompressorServiceImpl implements CompressorService {
     }
 
     @Override
-    public CompressInfoFile decompressWithLZW() {
-        return null;
+    public CompressInfoFile decompressWithLZW(final File fileToDecompress) throws IOException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }

@@ -27,7 +27,7 @@ import java.math.RoundingMode;
 public class LZ77ServiceImpl implements LZ77Service {
     private static final Logger log = LoggerFactory.getLogger(LZ77ServiceImpl.class);
 
-    public static final int DICTIONARY_SIZE = 512;
+    public static final int DICTIONARY_SIZE = 65536;
     public static final String COMPRESSED_EXTENSION = ".77";
     public static final String UNCOMPRESSED_EXTENSION = "u";
 

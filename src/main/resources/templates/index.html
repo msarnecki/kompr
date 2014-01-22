@@ -35,6 +35,7 @@
                     <td>Before</td>
                     <td>After</td>
                     <td>%</td>
+                    <td>File</td>
                 </tr>
             </thead>
             <tbody>
@@ -42,13 +43,14 @@
                 <td th:text="${lz77.compressInfo.sizeBefore}"></td>
                 <td th:text="${lz77.compressInfo.sizeAfter}"></td>
                 <td th:text="${lz77.compressInfo.compressRatio}"></td>
-                <td></td>
+                <td th:text="${lz77.compressedFile}"></td>
             </tbody>
             <tbody>
                 <td>LZW</td>
                 <td th:text="${lzw.compressInfo.sizeBefore}"></td>
                 <td th:text="${lzw.compressInfo.sizeAfter}"></td>
                 <td th:text="${lzw.compressInfo.compressRatio}"></td>
+                <td th:text="${lzw.compressedFile}"></td>
             </tbody>
         </table>
     </div>
