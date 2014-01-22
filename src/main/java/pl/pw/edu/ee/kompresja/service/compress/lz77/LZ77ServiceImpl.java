@@ -33,13 +33,9 @@ public class LZ77ServiceImpl implements LZ77Service {
 
     private DictionaryBuffer dictionary;
 
-    public LZ77ServiceImpl() {
-        dictionary = new DictionaryBuffer(DICTIONARY_SIZE);
-    }
-
-
     @Override
     public CompressInfoFile compressFile(final File fileToCompress) throws IOException {
+        dictionary = new DictionaryBuffer(DICTIONARY_SIZE);
         final Reader inputFile = new BufferedReader(new FileReader(fileToCompress));
 
         final File fileResult = new File(fileToCompress + COMPRESSED_EXTENSION);
