@@ -20,15 +20,14 @@ div {
 
 .title {
     margin: 0 auto;
-    min-height: 300px;
+    min-height: 250px;
     width: 400px;
 }
 
 .form {
     margin: 0 auto;
-    min-height: 300px;
+    min-height: 100px;
     width: 400px;
-    padding-left: 100px;
 }
 
 .kompr {
@@ -98,6 +97,20 @@ div {
 
 .compressors{
     margin: 50px auto;
+}
+
+.result-table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    background: #fff;
+    width: 480px;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 auto;
+}
+
+td{
+    padding: 10px 0;
 }
 
 

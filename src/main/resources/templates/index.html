@@ -22,22 +22,23 @@
 
             <div class="file-input">
                 <input type="file" class="input" name="file"/>
-            </div>
-
-            <div class="compressors">
-                <!--<a href="#" class="button">LZW</a>-->
-                <!--<a href="#" class="button">LZMA</a>-->
                 <input type="submit" class="button" value="Compare" style="width: 117px;height: 42px; "/>
             </div>
+
+            <!--<div class="compressors">-->
+                <!--&lt;!&ndash;<a href="#" class="button">LZW</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#" class="button">LZMA</a>&ndash;&gt;-->
+                <!--<input type="submit" class="button" value="Compare" style="width: 117px;height: 42px; "/>-->
+            <!--</div>-->
         </form>
     </div>
     <div th:if="${compressed}">
-        <table>
-            <thead>
+        <table class="result-table">
+            <thead style="border-bottom: thin solid #B3B3B3;">
                 <tr style="font-size: large">
-                    <td>Algorytm</td>
-                    <td>Przed</td>
-                    <td>Po</td>
+                    <td>Algorithm</td>
+                    <td>Before</td>
+                    <td>After</td>
                     <td>%</td>
                 </tr>
             </thead>
