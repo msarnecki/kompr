@@ -62,16 +62,17 @@ public class LZWServiceImpl implements LZWService {
 
     public List<Integer> compress(File fileToCompress) throws IOException {
         List<Integer> compressResult = Lists.newArrayList();
+
         createDictionary();
+        int dictSize = dictionary.keySet().size();
+
 
         try (Reader inputFile = new BufferedReader(new FileReader(fileToCompress));) {
+            String w = "";
             int nextChar;
 
             while (( nextChar = inputFile.read() ) != -1) {
                 char c = (char) nextChar;
-                int dictSize = dictionary.keySet().size();
-                String w = "";
-
                 String wc = w + c;
                 if (dictionary.containsKey(wc))
                     w = wc;
@@ -82,12 +83,11 @@ public class LZWServiceImpl implements LZWService {
                     dictionary.put(wc, dictSize++);
                     w = Character.toString(c);
                 }
-
-                if (StringUtils.isNotEmpty(w))
-                    compressResult.add(dictionary.get(w));
             }
-        }
 
+            if (StringUtils.isNotEmpty(w))
+                compressResult.add(dictionary.get(w));
+        }
         return compressResult;
     }
 

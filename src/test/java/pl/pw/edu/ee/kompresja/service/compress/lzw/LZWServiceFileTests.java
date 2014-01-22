@@ -51,7 +51,7 @@ public class LZWServiceFileTests extends AbstractTestNGSpringContextTests {
     public void shouldCompressTestLZWFile() throws IOException {
         // given
         File testFile = testLzw.getFile();
-        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 97,322, 97);
+        List<Integer> expected = Lists.newArrayList(77, 121, 347, 108, 97, 322, 101, 109, 44, 32, 380, 101, 32, 100, 122, 105, 65540, 97);
 
         // when
         CompressInfoFile compressInfoFile = lzwService.compressFile(testFile);
