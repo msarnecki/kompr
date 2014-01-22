@@ -13,9 +13,9 @@ public interface CompressorService {
 
     public CompressInfoFile compressWithLZ77(File fileToCompress) throws IOException;
 
-    public CompressInfoFile decompressWithLZ7();
+    public CompressInfoFile decompressWithLZ7(File fileToDecompress) throws IOException;
 
     public CompressInfoFile compressWithLZW(File fileToCompress) throws IOException;
 
-    public CompressInfoFile decompressWithLZW();
+    public CompressInfoFile decompressWithLZW(File fileToDecompress) throws IOException;
 }
